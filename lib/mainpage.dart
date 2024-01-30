@@ -1,67 +1,16 @@
+import 'package:asyn_task/DownloadProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:asyn_task/file_download_view.dart';
+import 'package:provider/provider.dart';
 
-class MyBody extends StatefulWidget {
-  const MyBody({Key? key}) : super(key: key);
+class MainPage extends StatefulWidget {
+  const MainPage({Key? key}) : super(key: key);
 
   @override
-  State<MyBody> createState() => _MyBodyState();
+  State<MainPage> createState() => _MainPageState();
 }
 
-class _MyBodyState extends State<MyBody> {
-  int fileVal1 = 0;
-  int fileVal2 = 0;
-  int fileVal3 = 0;
-  String stDownload = "Incomplete";
-
-  void syncPrograming() async {
-    while (fileVal1 < 100 || fileVal2 < 100 || fileVal3 < 100) {
-      setState(() {
-        fileVal1++;
-        fileVal2++;
-        fileVal3++;
-        if (fileVal1 == 100 && fileVal2 == 100 && fileVal3 == 100) {
-          stDownload = "Completed";
-        }
-      });
-      await Future.delayed(const Duration(milliseconds: 100));
-    }
-  }
-
-  Future<void> asyncPrograming() async {
-    await Future.delayed(const Duration(milliseconds: 200));
-    while (fileVal1 < 100) {
-      setState(() {
-        fileVal1++;
-        if (fileVal1 == 100) {
-          stDownload = "Completed";
-        }
-      });
-      await Future.delayed(const Duration(milliseconds: 100));
-    }
-
-    await Future.delayed(const Duration(milliseconds: 100));
-    while (fileVal3 < 100) {
-      setState(() {
-        fileVal3++;
-        if (fileVal3 == 100) {
-          stDownload = "Completed";
-        }
-      });
-      await Future.delayed(const Duration(milliseconds: 100));
-    }
-    await Future.delayed(const Duration(milliseconds: 100));
-    while (fileVal2 < 100) {
-      setState(() {
-        fileVal2++;
-        if (fileVal2 == 100) {
-          stDownload = "Completed";
-        }
-      });
-      await Future.delayed(const Duration(milliseconds: 100));
-    }
-  }
-
+class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -72,14 +21,17 @@ class _MyBodyState extends State<MyBody> {
             Expanded(
               child: Column(
                 children: [
-                  fileDownloadView(val: "File Downloaded $fileVal1 %"),
+                  fileDownloadView(
+                      val:
+                          "Image Downloaded ${(context.watch<DownloadProvider>().countDownloadImage*100).toStringAsFixed(0)}%"),
                   const SizedBox(
                     height: 5,
                   ),
                   LinearProgressIndicator(
-                    value: fileVal1 / 100,
+                    value: context.watch<DownloadProvider>().countDownloadImage,
                     backgroundColor: Colors.grey,
-                    valueColor: const AlwaysStoppedAnimation<Color>(Colors.blue),
+                    valueColor:
+                        const AlwaysStoppedAnimation<Color>(Colors.blue),
                   ),
                 ],
               ),
@@ -90,14 +42,17 @@ class _MyBodyState extends State<MyBody> {
             Expanded(
               child: Column(
                 children: [
-                  fileDownloadView(val: "File Downloaded $fileVal2 %"),
+                  fileDownloadView(
+                      val:
+                          "Music Downloaded ${(context.watch<DownloadProvider>().countDownloadMusic*100).toStringAsFixed(0)}%"),
                   const SizedBox(
                     height: 5,
                   ),
                   LinearProgressIndicator(
-                    value: fileVal2 / 100,
+                    value: context.watch<DownloadProvider>().countDownloadMusic,
                     backgroundColor: Colors.grey,
-                    valueColor: const AlwaysStoppedAnimation<Color>(Colors.blue),
+                    valueColor:
+                        const AlwaysStoppedAnimation<Color>(Colors.blue),
                   ),
                 ],
               ),
@@ -108,14 +63,17 @@ class _MyBodyState extends State<MyBody> {
             Expanded(
               child: Column(
                 children: [
-                  fileDownloadView(val: "File Downloaded $fileVal3 %"),
+                  fileDownloadView(
+                      val:
+                          "Video Downloaded ${(context.watch<DownloadProvider>().countDownloadVideo*100).toStringAsFixed(0)}%"),
                   const SizedBox(
                     height: 5,
                   ),
                   LinearProgressIndicator(
-                    value: fileVal3 / 100,
+                    value: context.watch<DownloadProvider>().countDownloadVideo,
                     backgroundColor: Colors.grey,
-                    valueColor: const AlwaysStoppedAnimation<Color>(Colors.blue),
+                    valueColor:
+                        const AlwaysStoppedAnimation<Color>(Colors.blue),
                   ),
                 ],
               ),
@@ -126,7 +84,9 @@ class _MyBodyState extends State<MyBody> {
           height: 30,
         ),
         GestureDetector(
-          onTap: syncPrograming,
+          onTap: () {
+            context.read<DownloadProvider>().syncPrograming();
+          },
           child: Container(
             height: 30,
             width: MediaQuery.of(context).size.width / 3.5,
@@ -138,7 +98,9 @@ class _MyBodyState extends State<MyBody> {
           height: 20,
         ),
         GestureDetector(
-          onTap: asyncPrograming,
+          onTap: () {
+            context.read<DownloadProvider>().asyncPrograming();
+          },
           child: Container(
             height: 30,
             width: MediaQuery.of(context).size.width / 3.5,
@@ -153,7 +115,7 @@ class _MyBodyState extends State<MyBody> {
           height: 30,
           width: MediaQuery.of(context).size.width / 3.5,
           color: Colors.purple,
-          child: Center(child: Text("Download $stDownload")),
+          child: Center(child: Text(context.watch<DownloadProvider>().status)),
         ),
       ],
     );
