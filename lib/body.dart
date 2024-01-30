@@ -29,7 +29,7 @@ class _MyBodyState extends State<MyBody> {
   }
 
   Future<void> asyncPrograming() async {
-    await Future.delayed(Duration(milliseconds: 200));
+    await Future.delayed(const Duration(milliseconds: 200));
     while (fileVal1 < 100) {
       setState(() {
         fileVal1++;
@@ -37,10 +37,10 @@ class _MyBodyState extends State<MyBody> {
           stDownload = "Completed";
         }
       });
-      await Future.delayed(Duration(milliseconds: 100));
+      await Future.delayed(const Duration(milliseconds: 100));
     }
 
-    await Future.delayed(Duration(milliseconds: 100));
+    await Future.delayed(const Duration(milliseconds: 100));
     while (fileVal3 < 100) {
       setState(() {
         fileVal3++;
@@ -48,9 +48,9 @@ class _MyBodyState extends State<MyBody> {
           stDownload = "Completed";
         }
       });
-      await Future.delayed(Duration(milliseconds: 100));
+      await Future.delayed(const Duration(milliseconds: 100));
     }
-    await Future.delayed(Duration(milliseconds: 100));
+    await Future.delayed(const Duration(milliseconds: 100));
     while (fileVal2 < 100) {
       setState(() {
         fileVal2++;
@@ -58,7 +58,7 @@ class _MyBodyState extends State<MyBody> {
           stDownload = "Completed";
         }
       });
-      await Future.delayed(Duration(milliseconds: 100));
+      await Future.delayed(const Duration(milliseconds: 100));
     }
   }
 
@@ -73,56 +73,56 @@ class _MyBodyState extends State<MyBody> {
               child: Column(
                 children: [
                   fileDownloadView(val: "File Downloaded $fileVal1 %"),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   LinearProgressIndicator(
                     value: fileVal1 / 100,
                     backgroundColor: Colors.grey,
-                    valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                    valueColor: const AlwaysStoppedAnimation<Color>(Colors.blue),
                   ),
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             Expanded(
               child: Column(
                 children: [
                   fileDownloadView(val: "File Downloaded $fileVal2 %"),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   LinearProgressIndicator(
                     value: fileVal2 / 100,
                     backgroundColor: Colors.grey,
-                    valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                    valueColor: const AlwaysStoppedAnimation<Color>(Colors.blue),
                   ),
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             Expanded(
               child: Column(
                 children: [
                   fileDownloadView(val: "File Downloaded $fileVal3 %"),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   LinearProgressIndicator(
                     value: fileVal3 / 100,
                     backgroundColor: Colors.grey,
-                    valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                    valueColor: const AlwaysStoppedAnimation<Color>(Colors.blue),
                   ),
                 ],
               ),
             ),
           ],
         ),
-        SizedBox(
+        const SizedBox(
           height: 30,
         ),
         GestureDetector(
@@ -131,10 +131,10 @@ class _MyBodyState extends State<MyBody> {
             height: 30,
             width: MediaQuery.of(context).size.width / 3.5,
             color: Colors.indigo,
-            child: Center(child: Text("Sync Download")),
+            child: const Center(child: Text("Sync Download")),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         GestureDetector(
@@ -143,10 +143,10 @@ class _MyBodyState extends State<MyBody> {
             height: 30,
             width: MediaQuery.of(context).size.width / 3.5,
             color: Colors.redAccent,
-            child: Center(child: Text("ASync Download")),
+            child: const Center(child: Text("ASync Download")),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         Container(
